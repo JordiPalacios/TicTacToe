@@ -2,10 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import confetti from "canvas-confetti"
 
-import {Square} from "./components/Square.jsx"
-import {Turns} from "./constants.js"
-import {checkWinnerFrom} from "./logic/board.js"
-import {WinnerModal} from "./components/WinnerModal.jsx"
+import { Square}  from "./components/Square.jsx"
+import { Turns } from "./constants.js"
+import { checkWinnerFrom } from "./logic/board.js"
+import { WinnerModal } from "./components/WinnerModal.jsx"
 
 function App() {
   const [board, setBoard] = useState(
@@ -79,7 +79,6 @@ function App() {
       </section>
 
       <WinnerModal resetGame={resetGame} winner={winner} />
-
     </main>
   )
 }
