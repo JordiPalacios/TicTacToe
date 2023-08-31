@@ -1,4 +1,5 @@
 import {Winner_Combos} from "../constants.js"
+import { Square } from "../components/Square.jsx"
 
 export const checkWinnerFrom = (boardToCheck) => {
     //revisamos todas las posibles combinaciones ganadoras
@@ -16,3 +17,10 @@ export const checkWinnerFrom = (boardToCheck) => {
     //si no hay ganador
     return null
   }
+
+export const checkEndGame = (newBoard) => {
+  // revisamos si hay un empate
+  // si no hay mas espacios vacios
+  // en el tablero
+  return newBoard.every((square) => square !== null)
+}
