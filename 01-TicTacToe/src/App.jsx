@@ -58,6 +58,13 @@ function App() {
     //si no hay ganador
     return null
   }
+
+  //funcion de reset del juego
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(Turns.X)
+    setWinner(null)
+  }
  
   const updateBoard = (index) => {
     // no actualizamos esta posicion
@@ -74,7 +81,7 @@ function App() {
     const newWinner = checkWinner(newBoard)
     if (newWinner) {
       setWinner(newWinner)
-    }
+    } //TODO: check if game is over
   }
 
   return (
@@ -103,6 +110,30 @@ function App() {
           {Turns.O}
         </Square> 
       </section>
+      {/* si tenemos el null <> 0 significa que ya se ha resuelto la partida */}
+      {
+        winner !== null && (
+          <section className='winner'>
+            <div className="text">
+              <h2>
+                {
+                  winner === false
+                  ? '¡Empate!'
+                  : '¡Ganó' + ' ' + winner + '!'
+                }
+              </h2>
+
+              <header className="win">
+                {winner && <Square>{winner}</Square>}
+              </header>
+
+              <footer>
+                <button onClick={resetGame}>Empezar de nuevo</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }
