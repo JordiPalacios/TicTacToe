@@ -1,5 +1,4 @@
 import {Winner_Combos} from "../constants.js"
-import { Square } from "../components/Square.jsx"
 
 export const checkWinnerFrom = (boardToCheck) => {
     //revisamos todas las posibles combinaciones ganadoras
