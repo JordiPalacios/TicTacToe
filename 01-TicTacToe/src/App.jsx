@@ -81,12 +81,15 @@ function App() {
     const newWinner = checkWinner(newBoard)
     if (newWinner) {
       setWinner(newWinner)
-    } //TODO: check if game is over
+    } else if (!newBoard.includes(null)) {
+      setWinner(false)
+    }
   }
 
   return (
     <main className="board">
       <h1>TicTacToe</h1>
+      <button onClick={resetGame}>Reset Juego</button>
       <section className="game">
         {
           board.map((_, index) => {
