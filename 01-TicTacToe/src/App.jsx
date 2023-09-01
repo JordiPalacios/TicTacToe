@@ -7,11 +7,19 @@ import { Turns } from "./constants.js"
 import { checkWinnerFrom, checkEndGame } from "./logic/board.js"
 import { WinnerModal } from "./components/WinnerModal.jsx"
 
+import { saveGameToStorage, resetGameStorage } from "./logic/index.js"
+
 function App() {
-  const [board, setBoard] = useState(
-    Array(9).fill(null)
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = window.localStorage.getItem('board')
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+  }
   )
-  const [turn, setTurn] = useState(Turns.X)
+  const [turn, setTurn] = useState( () => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    return turnFromStorage ?? Turns.X
+  }
+  )
   // null es que no hay ganador y false es un empate
   const [winner, setWinner] = useState(null)
 
@@ -20,6 +28,8 @@ function App() {
     setBoard(Array(9).fill(null))
     setTurn(Turns.X)
     setWinner(null)
+
+    resetGameStorage()
   }
  
   const updateBoard = (index) => {
@@ -34,8 +44,10 @@ function App() {
     const newTurn = turn === Turns.X ? Turns.O : Turns.X
     setTurn(newTurn)
     //guardar aquí partida
-    window.localStorage.setItem('board', JSON.stringify(newBoard))
-    window.localStorage.setItem('turn', turn)
+    saveGameToStorage({
+      board: newBoard,
+      turn: newTurn
+    })
     //revisar si hyay un ganador
     const newWinner = checkWinnerFrom(newBoard)
     if (newWinner) {
